@@ -1,7 +1,13 @@
 module MDP3_Parser(
 	input clk,
 	input reset,
-	input logic data_valid, //tells parser when to start reading
+	input logic data_valid, //tells parser when to start reading (valid - for Avalon ST)
+	
+	/*Unused Avalon ST interfaces*/
+	input logic start_payload,
+	input logic end_payload,
+	input logic empty,
+	
 	input logic [63:0] MESSAGE, //assume each message is 8 bytes
 	output logic[7:0] NUM_ORDERS,
 	output logic[15:0] QUANTITY,
@@ -9,7 +15,7 @@ module MDP3_Parser(
 	output logic[1:0] ACTION, ENTRY_TYPE,
 	output logic [31:0] SECURITY_ID,
 	output logic message_ready,//let next block know message is ready
-	output logic parser_ready,
+	output logic parser_ready, //ready - for Avalon ST
 	output logic enable_order_book //halts the reading of orderbook if low
 	);
 	

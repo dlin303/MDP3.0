@@ -20,7 +20,7 @@ module Order_Book_tb();
 	logic ready;
 	logic parser_ready;
 	logic enable_order_book;
-	logic[63:0] data_in;
+	logic[63:0] data_in;	
 	logic reset_n;
 	logic start_packet;
 	logic end_packet; 
@@ -42,7 +42,13 @@ module Order_Book_tb();
 	Order_Book #(123,10) book(.*);
 	//Order_Book #(122, 10)book2(.*);
 	//Order_Book #(121, 10)book3(.*);
-	MDP3_Parser parser(.MESSAGE(data_out), .parser_ready(rdreq), .*);
+	MDP3_Parser parser(	.MESSAGE(data_out), 
+								.parser_ready(rdreq), 
+								.start_payload(),
+								.end_payload(),
+								.empty(),
+								.*
+								);
 	packetizer pack(.*);
 	scfifo64x256 fifo(.data(data_out), .wrreq(done), .clock(clk),.*);
 	
