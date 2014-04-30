@@ -39,7 +39,9 @@ module Order_Book_tb();
 	logic	[7:0]  usedw;
 	
 	assign data_valid = done;
-	Order_Book book(.*);
+	Order_Book #(123,10) book(.*);
+	//Order_Book #(122, 10)book2(.*);
+	//Order_Book #(121, 10)book3(.*);
 	MDP3_Parser parser(.MESSAGE(data_out), .parser_ready(rdreq), .*);
 	packetizer pack(.*);
 	scfifo64x256 fifo(.data(data_out), .wrreq(done), .clock(clk),.*);

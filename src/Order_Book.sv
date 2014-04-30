@@ -25,6 +25,7 @@ module Order_Book(
 	output logic orderbook_ready //let next block know message is ready might need more?
 	);
 // Parameters
+parameter DG_SECURITY_ID = 0;
 parameter MAX_CONTRACTS = 10;
 	// 87-:16 -> Quantity; 71-:8 -> NUM_ORDERS; 63-:64 -> PRICE;
 	logic [87:0] ask [MAX_CONTRACTS-1:0];
@@ -128,7 +129,7 @@ parameter MAX_CONTRACTS = 10;
 			reset <= 'b0;
 		
 		end else begin
-			if(message_ready && enable_order_book) begin
+			if(message_ready && enable_order_book && DG_SECURITY_ID == SECURITY_ID) begin
 			
 			// New
 			if(ACTION == 2'd0) begin
