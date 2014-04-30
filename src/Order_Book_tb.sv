@@ -14,6 +14,7 @@ module Order_Book_tb();
 	logic[15:0] QUANTITY;
 	logic[63:0] PRICE;
 	logic[1:0] ACTION, ENTRY_TYPE;
+	logic [31:0] SECURITY_ID;
 	logic message_ready; //let next block know message is ready
 	logic reset;
 	logic ready;
@@ -27,11 +28,22 @@ module Order_Book_tb();
 	logic writeReq;
 	logic done;
 	logic[63:0] data_out;
+	
+	//FIFO stuff
 
+
+	logic rdreq;
+	logic	  empty;
+	logic	  full;
+	logic	[63:0]  q;
+	logic	[7:0]  usedw;
+	
 	assign data_valid = done;
 	Order_Book book(.*);
-	MDP3_Parser parser(.MESSAGE(data_out), .*);
+	MDP3_Parser parser(.MESSAGE(data_out), .parser_ready(rdreq), .*);
 	packetizer pack(.*);
+	scfifo64x256 fifo(.data(data_out), .wrreq(done), .clock(clk),.*);
+	
 	always begin
 		#10000 clk = !clk;
 	end

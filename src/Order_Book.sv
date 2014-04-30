@@ -19,6 +19,7 @@ module Order_Book(
 	input logic[15:0] QUANTITY,
 	input logic[63:0] PRICE,
 	input logic[1:0] ACTION, ENTRY_TYPE,
+	input logic[31:0] SECURITY_ID,
 	output logic[87:0] ASK0, ASK1, ASK2, ASK3, ASK4, ASK5, ASK6, ASK7, ASK8, ASK9, 
 	output logic[87:0] BID0, BID1, BID2, BID3, BID4, BID5, BID6, BID7, BID8, BID9, 
 	output logic orderbook_ready //let next block know message is ready might need more?

@@ -41,10 +41,10 @@ module packetizer(data_in,clk, reset_n, start_packet, end_packet, EN, writeReq, 
 	input wire start_packet;
 	input  wire end_packet; 
 	input wire EN;
-	output wire ready;
-	output reg writeReq; 
+	output wire ready; //packetizer read to take in data
+	output reg writeReq; //not in use right now
 	output reg reset; 
-	output logic done; //when done is high, start passing data_out
+	output logic done; //when done is high, start passing data_out, write to FIFO
 	output wire [63:0] data_out;
 
 	
