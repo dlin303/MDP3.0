@@ -224,7 +224,7 @@ module SoCKit_golden_top(
 //=======================================================
 
 //MDP3_Parser_tb parser_tb ();
-Order_Book_tb book();
-
+//Order_Book_tb book();
+fifo_tb ourFifo();
 
 endmodule
