@@ -40,7 +40,6 @@ module Order_Book_tb();
 	
 	assign data_valid = done;
 	Order_Book #(123,10) book(.*);
-	//Order_Book #(123,10) book(.ASK1());
 	//Order_Book #(122, 10)book2(.*);
 	//Order_Book #(121, 10)book3(.*);
 	MDP3_Parser parser(.MESSAGE(data_out), .parser_ready(rdreq), .*);
