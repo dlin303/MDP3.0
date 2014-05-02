@@ -1,0 +1,22 @@
+| Tag Name           | Size in Bits | What it means                                                                                                                                                                            |
+|--------------------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TransactTime       |           64 | Timestamp when the business transaction represented by the message occurred.                                                                                                             |
+| EventTimeDelta     |           16 | Indicates the time interval taken to process an event in number of nanoseconds. UTC Timestamps are sent in number of nanoseconds since Unix epoch with guaranteed microsecond precision. |
+| MatchEventInicator |            8 | Bitmap field of eight Boolean type indicators reflecting the end of updates for a given CME Globex Event                                                                                 |
+| NoMDEntries        |            8 | Indicates number of repeating groups and length of each repeating group in Market Data message.                                                                                          |
+| MDUpdateAction     |            8 | 0 = New; 1 = Change; 2 = Delete; 3 = DeleteThru; 4 = DeleteFrom; 5 = Overlay                                                                                                             |
+| MDEntryType        |            0 | 0 = Bid; 1= Ask;                                                                                                                                                                        |
+| SecurityID         |           32 | Unique instrument ID                                                                                                                                                                     |
+| RptSeq             |           32 | MD Entry sequence number per instrument update. Reset weekly.                                                                                                                            |
+| MDEntryPx          |           64 | Price of the Market Data Entry. This is just the mantissa, the exponent is always -7                                                                                                     |
+| MDEntrySize        |           16 | Quantity of the MD Entry.In a Book Entry - order quantity                                                                                                                                |
+| NumberOfOrders     |            8 | Aggregate number of orders at the given price level.                                                                                                                                     |
+| TradeID            |           32 | The unique ID assigned to the trade entity                                                                                                                                               |
+| AggressorSide      |            8 | Buyer = 1; Seller = 2                                                                                                                                                                    |
+|                    |              |                                                                                                                                                                                          |
+
+* Repeated for multiple entries:
+  - MDUpdateAction
+  - SecurityID
+  - RptSeq
+  - MDEntryPx
