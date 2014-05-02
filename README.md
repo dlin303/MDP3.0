@@ -1,9 +1,9 @@
 # Group Members
 
-Mirza Armaan Ali,
-Daron Lin,
-Jonathan Liu,
-Giovanni Ortuno
+Mirza Armaan Ali (Armbro) ,
+Daron Lin (Darbro),
+Jonathan Liu (Jbro),
+Giovanni Ortuno (Giobro)
 
 MDP3.0
 ======
