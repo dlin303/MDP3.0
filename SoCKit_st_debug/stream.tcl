@@ -34,7 +34,7 @@ while {[expr $j < 1000] && $inframe} {
 			 set packet_byte "5a7d"
 			 set payload_line $packet_byte$payload_line
 			 incr i
-		} elseif {$packet_byte eq "7b"} {
+		} elseif {$packet_byte eq "7b" || $packet_byte eq "7B"} {
 			 set packet_byte "5b7d"
 			 set payload_line $packet_byte$payload_line
 			 incr i
