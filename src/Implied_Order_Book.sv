@@ -35,9 +35,19 @@ module Implied_Order_Book(
 	input logic[87:0] U_BID0, U_BID1, U_BID2, U_BID3, U_BID4, U_BID5, U_BID6, U_BID7, U_BID8, U_BID9,
 	input logic[87:0] V_ASK0, V_ASK1, V_ASK2, V_ASK3, V_ASK4, V_ASK5, V_ASK6, V_ASK7, V_ASK8, V_ASK9,
 	input logic[87:0] V_BID0, V_BID1, V_BID2, V_BID3, V_BID4, V_BID5, V_BID6, V_BID7, V_BID8, V_BID9,
-	
+
 	output logic[87:0] U_V_ASK0, U_V_ASK1, U_V_ASK2, U_V_ASK3, U_V_ASK4, U_V_ASK5, U_V_ASK6, U_V_ASK7, U_V_ASK8, U_V_ASK9,
 	output logic[87:0] U_V_BID0, U_V_BID1, U_V_BID2, U_V_BID3, U_V_BID4, U_V_BID5, U_V_BID6, U_V_BID7, U_V_BID8, U_V_BID9,
+	
+	
+	output clk,
+	output logic message_ready, //when the parser has a message ready for us
+	output logic enable_order_book,
+	output logic[7:0] NUM_ORDERS,
+	output logic[15:0] QUANTITY,
+	output logic[63:0] PRICE,
+	output logic[1:0] ACTION, ENTRY_TYPE,
+	output logic[31:0] SECURITY_ID,
 );
 // ADD CHANGE DELETE
 
@@ -159,6 +169,65 @@ always_ff(@posedge clk) begin
 				UVA[i][63-:64] = UA[i][63-:64] - VB[i][63-:64]; // price
 			end
 			// Generate Implied out ???
+			
+			// Case 1: implied U_V ask and V ask -> generate U ask
+			if ((UVA[i][87-:16] != NULL_ORDER) && (VA[i][87-:16] != NULL_ORDER)) begin
+				//send an order update to the order book module
+				PRICE = UVA[i][63-:64] + VA[i][63-:64];
+				QUANTITY = UVA[i][87-:16] + VA[i][87-:16];
+				NUM_ORDERS + = 1; ??
+				ACTION = ASK; ??
+				ENTRY_TYPE = //update the U order book
+				
+				//update self as well
+				UVA[i][87-:16] = UVA[i][87-:16] - ?
+				VA[i][87-:16] = VA[i][87-16]- ?
+				
+			end
+			
+			// Case 2: implied U_V ask and U ask -> generate V ask
+			if ((UVA[i][87-:16] != NULL_ORDER) && (UA[i][87-:16] != NULL_ORDER)) begin
+				//send an order update to the order book module
+				PRICE = UVA[i][63-:64] + UA[i][63-:64];
+				QUANTITY = UVA[i][87-:16] + UAi][87-:16];
+				NUM_ORDERS + = 1; ??
+				ACTION = ASK // update the V order book
+				
+				//update self as well
+				UVA[i][87-:16] = UVA[i][87-:16] - ?
+				UA[i][87-:16] = UA[i][87-16]- ?
+				
+			end
+			
+			// Case 3: implied U_V ask and V bid -> generate U bid
+			if ((UVA[i][87-:16] != NULL_ORDER) && (VB[i][87-:16] != NULL_ORDER)) begin
+				//send an order update to the order book module
+				PRICE = UVA[i][63-:64] + VB[i][63-:64];
+				QUANTITY = UVA[i][87-:16] + VBi][87-:16];
+				NUM_ORDERS + = 1; ??
+				ACTION = BID // update the U order book
+				
+				//update self as well
+				UVA[i][87-:16] = UVA[i][87-:16] - ?
+				VB[i][87-:16] = VB[i][87-16]- ?
+				
+			end
+			
+			// Case 4: implied U_V ask and U bid -> generate V bid
+			
+			if ((UVA[i][87-:16] != NULL_ORDER) && (UB[i][87-:16] != NULL_ORDER)) begin
+				//send an order update to the order book module
+				PRICE = UVA[i][63-:64] + UB[i][63-:64];
+				QUANTITY = UVA[i][87-:16] + UBi][87-:16];
+				NUM_ORDERS + = 1; ??
+				ACTION = BID // update the V order book
+				
+				//update self as well
+				UVA[i][87-:16] = UVA[i][87-:16] - ?
+				UB[i][87-:16] = UB[i][87-16]- ?
+				
+			end
+			
 		end
 	end
 end
