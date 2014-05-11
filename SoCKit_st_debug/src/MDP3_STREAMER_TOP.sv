@@ -30,7 +30,10 @@ module MDP3_STREAMER_TOP (
 		output logic read_fifo
 	);
 
-	
+logic[87:0] ASK0, ASK1, ASK2, ASK3, ASK4, ASK5, ASK6, ASK7, ASK8, ASK9; 
+logic[87:0] BID0, BID1, BID2, BID3, BID4, BID5, BID6, BID7, BID8, BID9; 
+logic orderbook_ready; //let next block know message is ready might need more?
+
 packetizer mdp3_packetizer( 
 			.EN(valid), 
 			.data_out(message_packetizer_to_fifo), 
@@ -52,5 +55,6 @@ scfifo64x256 fifo(
 			
 MDP3_Parser parser (.MESSAGE(q), .not_empty(!fifo_empty), .reset(reset_n), .parser_ready(read_fifo), .*);
 
+Order_Book #(123,10) book(.*);
 
 endmodule

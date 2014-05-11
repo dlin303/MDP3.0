@@ -3,7 +3,8 @@ variable s_path ""
 set s_path [lindex [get_service_paths master] 0]
 open_service master $s_path
 #set infile [open packet_data.txt "r"]
-set infile [open mdp3_tcl_temp.txt "r"]
+#set infile [open mdp3_tcl_temp.txt "r"]
+set infile [open mdp3_tcl_temp2.txt "r"]
 set outfile [open packet_data_out.txt "w"]
 
 set stream_base 0x0
