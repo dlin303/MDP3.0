@@ -4,7 +4,7 @@
 
 module packetizer(data_in,clk, reset_n, start_packet, end_packet, EN, writeReq, reset, done, data_out, ready);
 	
-		parameter START = 4'b0000;
+	parameter START = 4'b0000;
 
 	parameter DROP_PACKET = 4'b0001;
 

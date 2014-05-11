@@ -62,7 +62,7 @@ C9 00 00 00 : TradeID
 
 C0C21C023D0100006803800102017B0000000C000000A0475F3B00000000AE0001C9000000
 
-/* New Order Entered at same price */
+/* New price (bid) */
 
 C0 C2 1C 02 3D 01 00 00 : Transact Time
 68 03 : Event Time Delta

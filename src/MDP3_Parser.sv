@@ -9,8 +9,9 @@ module MDP3_Parser(
 	output logic[1:0] ACTION, ENTRY_TYPE,
 	output logic [31:0] SECURITY_ID,
 	output logic message_ready,//let next block know message is ready
-	output logic parser_ready,
-	output logic enable_order_book //halts the reading of orderbook if low
+	output logic parser_ready, //let FIFO know it's ready for next input
+	output logic enable_order_book, //halts the reading of orderbook if low
+	output logic [63:0] TEMP
 	);
 	
 	int bus_count = 0;
@@ -18,6 +19,7 @@ module MDP3_Parser(
 	logic [63:0] PRICE_TEMP;
 	logic [31:0] SECURITY_ID_TEMP;
 	logic processing = 1'b0;
+	
 	//if reset, reset all data
 	initial begin
 		message_ready <= 1'b0;
@@ -31,29 +33,39 @@ module MDP3_Parser(
 			
 			case(bus_count)
 				0: begin
-					bus_count += 1;
+					bus_count+=1;
 					processing <= 1'b1;
 					parser_ready <= 1'b1; //right now parser is ready for next input each clock cycle
 					message_ready <= 1'b0;
 				end
+				
 				1: begin
+					bus_count+=1;
+					TEMP <= MESSAGE[63:0];
+				end
+				
+				2: begin
 					ACTION <= MESSAGE[25 -: 1];
 					ENTRY_TYPE <= MESSAGE[17 -: 1];
 					SECURITY_ID_TEMP [31 -: 16] <= MESSAGE[15-:16];
+					TEMP <= MESSAGE[63:0];
 					bus_count += 1;
 				end
-				2: begin 
+				
+				3: begin 
 					SECURITY_ID_TEMP [15 -: 16] <= MESSAGE[63-:16];
 					PRICE_TEMP[63 -: 16] <= MESSAGE[15 -: 16];
 					bus_count += 1; 
 				end
-				3: begin
+				
+				4: begin
 					SECURITY_ID <= changeEndian32(SECURITY_ID_TEMP);
 					PRICE_TEMP[47 -: 48] <= MESSAGE[63 -:48];
 					QUANTITY <= changeEndian16(MESSAGE [15 -: 16]);
 					bus_count += 1;
 				end
-				4: begin 
+				
+				5: begin 
 					NUM_ORDERS <= MESSAGE[63 -: 8];
 					PRICE <= changeEndian64(PRICE_TEMP);
 					message_ready <= 1'b1;

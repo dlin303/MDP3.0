@@ -1,6 +1,6 @@
 module Order_Book_tb();
 	reg clk = 1'b1;
-	logic data_valid;
+	//logic data_valid;
 	logic [63:0] zero = 64'b0;
 	//	logic [408:0] Ethernet_Message = 408'h00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000C0C21C023D0100006803800100017B0000000C0000000300000000000000000403C9000000;
 	logic [295:0] Full_Message = 296'hC0C21C023D0100006803800100007B0000000C0000000900000000000000AE0001C9000000;
@@ -28,23 +28,26 @@ module Order_Book_tb();
 	logic writeReq;
 	logic done;
 	logic[63:0] data_out;
+	logic not_empty; //check if FIFO is empty or not
+	logic	  empty;
+	assign not_empty = !empty;
+	logic [63:0] TEMP;
 	
 	//FIFO stuff
-
-
 	logic rdreq;
-	logic	  empty;
 	logic	  full;
-	logic	[63:0]  q;
+	//logic	[63:0]  q;
 	logic	[7:0]  usedw;
 	
-	assign data_valid = done;
+	
+	//assign data_valid = done;
 	Order_Book #(123,10) book(.*);
 	//Order_Book #(122, 10)book2(.*);
 	//Order_Book #(121, 10)book3(.*);
-	MDP3_Parser parser(.MESSAGE(data_out), .parser_ready(rdreq), .*);
+	
 	packetizer pack(.*);
-	scfifo64x256 fifo(.data(data_out), .wrreq(done), .clock(clk),.*);
+	scfifo64x256 fifo(.data(data_out), .wrreq(done), .clock(clk), .q(MESSAGE), .*);
+	MDP3_Parser parser(.parser_ready(rdreq), .data_valid(!empty), .*);
 	
 	always begin
 		#10000 clk = !clk;
