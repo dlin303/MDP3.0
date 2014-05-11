@@ -1,8 +1,8 @@
 /**********************************************************************************
-*	Module : MDP Parser
+*	Module : Order Book
 *	Description:
 *
-*	Authors:		Mirza Armaan Ali,	Jonathan Liu
+*	Authors:		Mirza Armaan Ali,	Daron Lin, Jonathan Liu, Giovanni Ortuno
 *	Contact:
 *
 *	Last Update:	22/04/2014
@@ -24,9 +24,9 @@ module Order_Book(
 	output logic[87:0] BID0, BID1, BID2, BID3, BID4, BID5, BID6, BID7, BID8, BID9, 
 	output logic orderbook_ready //let next block know message is ready might need more?
 	);
-// Parameters
-parameter DG_SECURITY_ID = 0;
-parameter MAX_CONTRACTS = 10;
+	// Parameters
+	parameter DG_SECURITY_ID = 0;
+	parameter MAX_CONTRACTS = 10;
 	// 87-:16 -> Quantity; 71-:8 -> NUM_ORDERS; 63-:64 -> PRICE;
 	logic [87:0] ask [MAX_CONTRACTS-1:0];
 	logic [87:0] bid [MAX_CONTRACTS-1:0];
