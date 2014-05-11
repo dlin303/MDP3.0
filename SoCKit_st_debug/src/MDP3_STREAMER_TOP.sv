@@ -21,17 +21,15 @@ module MDP3_STREAMER_TOP (
 		output logic [31:0] SECURITY_ID,
 		output logic message_ready,//let next block know message is ready
 		//output logic parser_ready,
-		output logic enable_order_book //halts the reading of orderbook if low
+		output logic enable_order_book, //halts the reading of orderbook if low
 
 	//FIFO output
+		output logic [63:0] message_packetizer_to_fifo,
+		output logic fifo_wrreq, //write request from packetizer to fifo
+		output logic fifo_empty, //high if fifo is empty
+		output logic read_fifo
 	);
 
-logic [63:0] message_packetizer_to_fifo;
-logic fifo_wrreq; //write request from packetizer to fifo
-logic fifo_not_empty;
-assign fifo_not_empty = !fifo_empty;
-logic fifo_empty; //high if fifo is empty
-logic read_fifo;
 	
 packetizer mdp3_packetizer( 
 			.EN(valid), 
@@ -52,7 +50,7 @@ scfifo64x256 fifo(
 			.*
 			);
 			
-MDP3_Parser parser (.MESSAGE(data_out), .data_valid(fifo_not_empty), .reset(reset_n), .parser_ready(read_fifo), .*);
+MDP3_Parser parser (.MESSAGE(q), .not_empty(!fifo_empty), .reset(reset_n), .parser_ready(read_fifo), .*);
 
 
 endmodule
