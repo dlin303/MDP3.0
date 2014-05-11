@@ -1,7 +1,7 @@
 module MDP3_Parser(
 	input clk,
 	input reset,
-	input logic data_valid, //tells parser when to start reading
+	input logic not_empty, //tells parser when to start reading
 	input logic [63:0] MESSAGE, //assume each message is 8 bytes
 	output logic[7:0] NUM_ORDERS,
 	output logic[15:0] QUANTITY,
@@ -15,7 +15,8 @@ module MDP3_Parser(
 	);
 	
 	int bus_count = 0;
-	logic test = 1'b0;
+	logic test = 1'b0; //TODO remove
+	logic data_valid;
 	logic [63:0] PRICE_TEMP;
 	logic [31:0] SECURITY_ID_TEMP;
 	logic processing = 1'b0;
@@ -28,6 +29,14 @@ module MDP3_Parser(
 	end
 	
 	always_ff @(posedge clk) begin
+		
+		if(not_empty && parser_ready) begin
+			data_valid <= 1'b1;
+		end else begin
+			data_valid <= 1'b0;
+		end
+
+
 		if(data_valid && parser_ready || data_valid && processing) begin
 			enable_order_book <= 1'b1;
 			
@@ -39,12 +48,12 @@ module MDP3_Parser(
 					message_ready <= 1'b0;
 				end
 				
-				1: begin
-					bus_count+=1;
-					TEMP <= MESSAGE[63:0];
-				end
+		//		1: begin
+		//			bus_count+=1;
+		//			TEMP <= MESSAGE[63:0];
+		//		end
 				
-				2: begin
+				1: begin
 					ACTION <= MESSAGE[25 -: 1];
 					ENTRY_TYPE <= MESSAGE[17 -: 1];
 					SECURITY_ID_TEMP [31 -: 16] <= MESSAGE[15-:16];
@@ -52,20 +61,20 @@ module MDP3_Parser(
 					bus_count += 1;
 				end
 				
-				3: begin 
+				2: begin 
 					SECURITY_ID_TEMP [15 -: 16] <= MESSAGE[63-:16];
 					PRICE_TEMP[63 -: 16] <= MESSAGE[15 -: 16];
 					bus_count += 1; 
 				end
 				
-				4: begin
+				3: begin
 					SECURITY_ID <= changeEndian32(SECURITY_ID_TEMP);
 					PRICE_TEMP[47 -: 48] <= MESSAGE[63 -:48];
 					QUANTITY <= changeEndian16(MESSAGE [15 -: 16]);
 					bus_count += 1;
 				end
 				
-				5: begin 
+				4: begin 
 					NUM_ORDERS <= MESSAGE[63 -: 8];
 					PRICE <= changeEndian64(PRICE_TEMP);
 					message_ready <= 1'b1;

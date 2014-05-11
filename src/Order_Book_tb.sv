@@ -47,7 +47,7 @@ module Order_Book_tb();
 	
 	packetizer pack(.*);
 	scfifo64x256 fifo(.data(data_out), .wrreq(done), .clock(clk), .q(MESSAGE), .*);
-	MDP3_Parser parser(.parser_ready(rdreq), .data_valid(!empty), .*);
+	MDP3_Parser parser(.parser_ready(rdreq), .not_empty(!empty), .*);
 	
 	always begin
 		#10000 clk = !clk;
