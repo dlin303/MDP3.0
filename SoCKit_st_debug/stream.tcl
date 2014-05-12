@@ -19,7 +19,14 @@ set line 64
 set wait 1000		
 set precursor "0x"
 
+set packet_num 0
+
+
+
+while { [eof $infile] != 1 } {
 set packet_byte [gets $infile]
+   
+
 if {$packet_byte eq "sop"} {
 # Send special characters: 7a00_0000_0000_0000 indicate "startofpacket"
 master_write_32 $s_path $stream_base 0x44332211
@@ -28,9 +35,12 @@ set j 0
 set inframe 1
 set payload_line "7a7a7a55"
 while {[expr $j < 1000] && $inframe} {
-   incr j
+	#flag to figure out whether or not to pad with 0s
+   	set filler_flag 0 	
+	incr j
 	for {set i 0} {$i < 4} {incr i} {
 		set packet_byte [gets $infile]
+
 		if {$packet_byte eq "7a"} {
 			 set packet_byte "5a7d"
 			 set payload_line $packet_byte$payload_line
@@ -51,7 +61,8 @@ while {[expr $j < 1000] && $inframe} {
 			 set packet_byte "7b"
 			 set inframe 0
 			 set payload_line "[string range $payload_line 0 1]$packet_byte[string range $payload_line 2 end]"
-			 puts "eop"
+			 puts "eop $i"
+			 break
 		} else {
 		    set payload_line $packet_byte$payload_line
 		}
@@ -67,6 +78,9 @@ while {[expr $j < 1000] && $inframe} {
 	set payload_line [string range $payload_line 0 end-8]
 	puts "data_to_stream: $data_to_stream"
 	master_write_32 $s_path $stream_base $data_to_stream
+}
+	puts "packet_num: $packet_num"
+	incr packet_num
 }
 
 master_write_8 $s_path $ready_base 0x1
