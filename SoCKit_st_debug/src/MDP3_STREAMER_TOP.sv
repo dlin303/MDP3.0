@@ -14,10 +14,10 @@ module MDP3_STREAMER_TOP (
 		//output logic done, //when done is high, start passing data_out, write to FIFO
 		
 		//Parser Output
-		output logic[7:0] NUM_ORDERS,
-		output logic[15:0] QUANTITY,
+		output logic[31:0] NUM_ORDERS,
+		output logic[31:0] QUANTITY,
 		output logic[63:0] PRICE,
-		output logic[1:0] ACTION, ENTRY_TYPE,
+		output logic[7:0] ACTION, ENTRY_TYPE,
 		output logic [31:0] SECURITY_ID,
 		output logic message_ready,//let next block know message is ready
 		//output logic parser_ready,
@@ -30,8 +30,8 @@ module MDP3_STREAMER_TOP (
 		output logic read_fifo
 	);
 
-logic[87:0] ASK0, ASK1, ASK2, ASK3, ASK4, ASK5, ASK6, ASK7, ASK8, ASK9; 
-logic[87:0] BID0, BID1, BID2, BID3, BID4, BID5, BID6, BID7, BID8, BID9; 
+logic[127:0] ASK0, ASK1, ASK2, ASK3, ASK4, ASK5, ASK6, ASK7, ASK8, ASK9; 
+logic[127:0] BID0, BID1, BID2, BID3, BID4, BID5, BID6, BID7, BID8, BID9; 
 logic orderbook_ready; //let next block know message is ready might need more?
 
 packetizer mdp3_packetizer( 
