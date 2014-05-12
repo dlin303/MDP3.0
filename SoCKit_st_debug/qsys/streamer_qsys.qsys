@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="$${FILENAME}">
+ <component
+   name="$${FILENAME}"
+   displayName="$${FILENAME}"
+   version="1.0"
+   description=""
+   tags=""
+   categories="System" />
+ <parameter name="bonusData"><![CDATA[bonusData 
+{
+   element $${FILENAME}
+   {
+   }
+   element avalon_mm2st
+   {
+      datum _sortIndex
+      {
+         value = "3";
+         type = "int";
+      }
+   }
+   element avalon_st2mm
+   {
+      datum _sortIndex
+      {
+         value = "15";
+         type = "int";
+      }
+   }
+   element avl_st_socket
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
+   element avl_st_socket.control_mm
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "8";
+         type = "String";
+      }
+   }
+   element data_format_32_to_8
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
+   element data_format_64_to_8
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
+   element data_format_8_to_32
+   {
+      datum _sortIndex
+      {
+         value = "13";
+         type = "int";
+      }
+   }
+   element data_format_8_to_64
+   {
+      datum _sortIndex
+      {
+         value = "7";
+         type = "int";
+      }
+   }
+   element global_clock_bridge
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+   element global_reset_controller
+   {
+      datum _sortIndex
+      {
+         value = "1";
+         type = "int";
+      }
+   }
+   element avalon_mm2st.in
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "0";
+         type = "String";
+      }
+   }
+   element avalon_st2mm.out
+   {
+      datum baseAddress
+      {
+         value = "16";
+         type = "String";
+      }
+   }
+   element pcap_stream_master
+   {
+      datum _sortIndex
+      {
+         value = "2";
+         type = "int";
+      }
+   }
+   element sc_fifo_in
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element sc_fifo_out
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+   }
+   element sc_fifo_to_app_sink
+   {
+      datum _sortIndex
+      {
+         value = "10";
+         type = "int";
+      }
+   }
+   element sc_fifo_to_app_src
+   {
+      datum _sortIndex
+      {
+         value = "9";
+         type = "int";
+      }
+   }
+   element st_bytes_to_packet
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
+   element st_packets_to_bytes
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+}
+]]></parameter>
+ <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="device" value="5CSXFC6D6F31C8" />
+ <parameter name="deviceFamily" value="Cyclone V" />
+ <parameter name="deviceSpeedGrade" value="8_H6" />
+ <parameter name="fabricMode" value="QSYS" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="generationId" value="0" />
+ <parameter name="globalResetBus" value="false" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="projectName" value="" />
+ <parameter name="sopcBorderPoints" value="false" />
+ <parameter name="systemHash" value="0" />
+ <parameter name="timeStamp" value="0" />
+ <parameter name="useTestBenchNamingPattern" value="false" />
+ <instanceScript></instanceScript>
+ <interface
+   name="clk_50"
+   internal="global_clock_bridge.in_clk"
+   type="clock"
+   dir="end" />
+ <interface
+   name="reset_in0"
+   internal="global_reset_controller.reset_in0"
+   type="reset"
+   dir="end" />
+ <interface
+   name="stream_src"
+   internal="sc_fifo_to_app_src.out"
+   type="avalon_streaming"
+   dir="start" />
+ <interface
+   name="stream_sink"
+   internal="sc_fifo_to_app_sink.in"
+   type="avalon_streaming"
+   dir="end" />
+ <module
+   kind="altera_jtag_avalon_master"
+   version="13.1"
+   enabled="1"
+   name="pcap_stream_master">
+  <parameter name="USE_PLI" value="0" />
+  <parameter name="PLI_PORT" value="50000" />
+  <parameter name="COMPONENT_CLOCK" value="0" />
+  <parameter name="FAST_VER" value="0" />
+  <parameter name="FIFO_DEPTHS" value="2" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="AUTO_DEVICE" value="5CSXFC6D6F31C8" />
+ </module>
+ <module
+   kind="altera_reset_controller"
+   version="13.1"
+   enabled="1"
+   name="global_reset_controller">
+  <parameter name="NUM_RESET_INPUTS" value="1" />
+  <parameter name="OUTPUT_RESET_SYNC_EDGES" value="deassert" />
+  <parameter name="SYNC_DEPTH" value="2" />
+  <parameter name="RESET_REQUEST_PRESENT" value="0" />
+  <parameter name="RESET_REQ_WAIT_TIME" value="1" />
+  <parameter name="MIN_RST_ASSERTION_TIME" value="3" />
+  <parameter name="RESET_REQ_EARLY_DSRT_TIME" value="1" />
+  <parameter name="USE_RESET_REQUEST_IN0" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN1" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN2" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN3" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN4" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN5" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN6" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN7" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN8" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN9" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN10" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN11" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN12" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN13" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN14" value="0" />
+  <parameter name="USE_RESET_REQUEST_IN15" value="0" />
+  <parameter name="USE_RESET_REQUEST_INPUT" value="0" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+ </module>
+ <module
+   kind="altera_clock_bridge"
+   version="13.1"
+   enabled="1"
+   name="global_clock_bridge">
+  <parameter name="DERIVED_CLOCK_RATE" value="0" />
+  <parameter name="EXPLICIT_CLOCK_RATE" value="50000000" />
+  <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
+ </module>
+ <module
+   kind="altera_avalon_fifo"
+   version="13.1"
+   enabled="1"
+   name="avalon_mm2st">
+  <parameter name="avalonMMAvalonMMDataWidth" value="32" />
+  <parameter name="avalonMMAvalonSTDataWidth" value="32" />
+  <parameter name="bitsPerSymbol" value="8" />
+  <parameter name="channelWidth" value="0" />
+  <parameter name="errorWidth" value="0" />
+  <parameter name="fifoDepth" value="512" />
+  <parameter name="fifoInputInterfaceOptions" value="AVALONMM_WRITE" />
+  <parameter name="fifoOutputInterfaceOptions" value="AVALONST_SOURCE" />
+  <parameter name="showHiddenFeatures" value="false" />
+  <parameter name="singleClockMode" value="true" />
+  <parameter name="singleResetMode" value="true" />
+  <parameter name="symbolsPerBeat" value="4" />
+  <parameter name="useBackpressure" value="true" />
+  <parameter name="useIRQ" value="true" />
+  <parameter name="usePacket" value="false" />
+  <parameter name="useReadControl" value="false" />
+  <parameter name="useRegister" value="false" />
+  <parameter name="useWriteControl" value="false" />
+  <parameter name="deviceFamilyString" value="Cyclone V" />
+ </module>
+ <module
+   kind="altera_avalon_st_bytes_to_packets"
+   version="13.1"
+   enabled="1"
+   name="st_bytes_to_packet">
+  <parameter name="CHANNEL_WIDTH" value="8" />
+  <parameter name="ENCODING" value="0" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+ </module>
+ <module
+   kind="altera_avalon_sc_fifo"
+   version="13.1"
+   enabled="1"
+   name="sc_fifo_in">
+  <parameter name="SYMBOLS_PER_BEAT" value="1" />
+  <parameter name="BITS_PER_SYMBOL" value="8" />
+  <parameter name="FIFO_DEPTH" value="1024" />
+  <parameter name="CHANNEL_WIDTH" value="0" />
+  <parameter name="ERROR_WIDTH" value="0" />
+  <parameter name="USE_PACKETS" value="0" />
+  <parameter name="USE_FILL_LEVEL" value="0" />
+  <parameter name="EMPTY_LATENCY" value="3" />
+  <parameter name="USE_MEMORY_BLOCKS" value="1" />
+  <parameter name="USE_STORE_FORWARD" value="0" />
+  <parameter name="USE_ALMOST_FULL_IF" value="0" />
+  <parameter name="USE_ALMOST_EMPTY_IF" value="0" />
+  <parameter name="ENABLE_EXPLICIT_MAXCHANNEL" value="false" />
+  <parameter name="EXPLICIT_MAXCHANNEL" value="0" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+ </module>
+ <module
+   kind="altera_avalon_st_packets_to_bytes"
+   version="13.1"
+   enabled="1"
+   name="st_packets_to_bytes">
+  <parameter name="CHANNEL_WIDTH" value="8" />
+  <parameter name="ENCODING" value="0" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+ </module>
+ <module
+   kind="altera_avalon_fifo"
+   version="13.1"
+   enabled="1"
+   name="avalon_st2mm">
+  <parameter name="avalonMMAvalonMMDataWidth" value="32" />
+  <parameter name="avalonMMAvalonSTDataWidth" value="32" />
+  <parameter name="bitsPerSymbol" value="8" />
+  <parameter name="channelWidth" value="0" />
+  <parameter name="errorWidth" value="0" />
+  <parameter name="fifoDepth" value="16" />
+  <parameter name="fifoInputInterfaceOptions" value="AVALONST_SINK" />
+  <parameter name="fifoOutputInterfaceOptions" value="AVALONMM_READ" />
+  <parameter name="showHiddenFeatures" value="false" />
+  <parameter name="singleClockMode" value="true" />
+  <parameter name="singleResetMode" value="true" />
+  <parameter name="symbolsPerBeat" value="4" />
+  <parameter name="useBackpressure" value="false" />
+  <parameter name="useIRQ" value="true" />
+  <parameter name="usePacket" value="false" />
+  <parameter name="useReadControl" value="false" />
+  <parameter name="useRegister" value="false" />
+  <parameter name="useWriteControl" value="false" />
+  <parameter name="deviceFamilyString" value="Cyclone V" />
+ </module>
+ <module
+   kind="avalon_stream_simulater"
+   version="2.0"
+   enabled="1"
+   name="avl_st_socket">
+  <parameter name="error_width" value="1" />
+  <parameter name="stdata_width" value="64" />
+  <parameter name="mmdata_width" value="8" />
+  <parameter name="addr_width" value="3" />
+  <parameter name="empty_width" value="3" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+ </module>
+ <module
+   kind="data_format_adapter"
+   version="13.1"
+   enabled="1"
+   name="data_format_32_to_8">
+  <parameter name="generationLanguage" value="VERILOG" />
+  <parameter name="inBitsPerSymbol" value="8" />
+  <parameter name="inChannelWidth" value="0" />
+  <parameter name="inErrorDescriptor" value="" />
+  <parameter name="inErrorWidth" value="0" />
+  <parameter name="inMaxChannel" value="0" />
+  <parameter name="inReadyLatency" value="0" />
+  <parameter name="inSymbolsPerBeat" value="4" />
+  <parameter name="inUseEmpty" value="false" />
+  <parameter name="inUseEmptyPort" value="AUTO" />
+  <parameter name="inUsePackets" value="false" />
+  <parameter name="inUseReady" value="true" />
+  <parameter name="moduleName" value="" />
+  <parameter name="outSymbolsPerBeat" value="1" />
+  <parameter name="outUseEmpty" value="false" />
+  <parameter name="outUseEmptyPort" value="AUTO" />
+ </module>
+ <module
+   kind="data_format_adapter"
+   version="13.1"
+   enabled="1"
+   name="data_format_8_to_64">
+  <parameter name="generationLanguage" value="VERILOG" />
+  <parameter name="inBitsPerSymbol" value="8" />
+  <parameter name="inChannelWidth" value="0" />
+  <parameter name="inErrorDescriptor" value="" />
+  <parameter name="inErrorWidth" value="0" />
+  <parameter name="inMaxChannel" value="0" />
+  <parameter name="inReadyLatency" value="0" />
+  <parameter name="inSymbolsPerBeat" value="1" />
+  <parameter name="inUseEmpty" value="false" />
+  <parameter name="inUseEmptyPort" value="AUTO" />
+  <parameter name="inUsePackets" value="true" />
+  <parameter name="inUseReady" value="true" />
+  <parameter name="moduleName" value="" />
+  <parameter name="outSymbolsPerBeat" value="8" />
+  <parameter name="outUseEmpty" value="false" />
+  <parameter name="outUseEmptyPort" value="AUTO" />
+ </module>
+ <module
+   kind="data_format_adapter"
+   version="13.1"
+   enabled="1"
+   name="data_format_64_to_8">
+  <parameter name="generationLanguage" value="VERILOG" />
+  <parameter name="inBitsPerSymbol" value="8" />
+  <parameter name="inChannelWidth" value="0" />
+  <parameter name="inErrorDescriptor" value="" />
+  <parameter name="inErrorWidth" value="0" />
+  <parameter name="inMaxChannel" value="0" />
+  <parameter name="inReadyLatency" value="0" />
+  <parameter name="inSymbolsPerBeat" value="8" />
+  <parameter name="inUseEmpty" value="false" />
+  <parameter name="inUseEmptyPort" value="AUTO" />
+  <parameter name="inUsePackets" value="true" />
+  <parameter name="inUseReady" value="true" />
+  <parameter name="moduleName" value="" />
+  <parameter name="outSymbolsPerBeat" value="1" />
+  <parameter name="outUseEmpty" value="false" />
+  <parameter name="outUseEmptyPort" value="AUTO" />
+ </module>
+ <module
+   kind="data_format_adapter"
+   version="13.1"
+   enabled="1"
+   name="data_format_8_to_32">
+  <parameter name="generationLanguage" value="VERILOG" />
+  <parameter name="inBitsPerSymbol" value="8" />
+  <parameter name="inChannelWidth" value="0" />
+  <parameter name="inErrorDescriptor" value="" />
+  <parameter name="inErrorWidth" value="0" />
+  <parameter name="inMaxChannel" value="0" />
+  <parameter name="inReadyLatency" value="0" />
+  <parameter name="inSymbolsPerBeat" value="1" />
+  <parameter name="inUseEmpty" value="false" />
+  <parameter name="inUseEmptyPort" value="AUTO" />
+  <parameter name="inUsePackets" value="false" />
+  <parameter name="inUseReady" value="true" />
+  <parameter name="moduleName" value="" />
+  <parameter name="outSymbolsPerBeat" value="4" />
+  <parameter name="outUseEmpty" value="false" />
+  <parameter name="outUseEmptyPort" value="AUTO" />
+ </module>
+ <module
+   kind="altera_avalon_sc_fifo"
+   version="13.1"
+   enabled="1"
+   name="sc_fifo_out">
+  <parameter name="SYMBOLS_PER_BEAT" value="4" />
+  <parameter name="BITS_PER_SYMBOL" value="8" />
+  <parameter name="FIFO_DEPTH" value="8192" />
+  <parameter name="CHANNEL_WIDTH" value="0" />
+  <parameter name="ERROR_WIDTH" value="0" />
+  <parameter name="USE_PACKETS" value="0" />
+  <parameter name="USE_FILL_LEVEL" value="0" />
+  <parameter name="EMPTY_LATENCY" value="3" />
+  <parameter name="USE_MEMORY_BLOCKS" value="1" />
+  <parameter name="USE_STORE_FORWARD" value="0" />
+  <parameter name="USE_ALMOST_FULL_IF" value="0" />
+  <parameter name="USE_ALMOST_EMPTY_IF" value="0" />
+  <parameter name="ENABLE_EXPLICIT_MAXCHANNEL" value="false" />
+  <parameter name="EXPLICIT_MAXCHANNEL" value="0" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+ </module>
+ <module
+   kind="altera_avalon_sc_fifo"
+   version="13.1"
+   enabled="1"
+   name="sc_fifo_to_app_src">
+  <parameter name="SYMBOLS_PER_BEAT" value="8" />
+  <parameter name="BITS_PER_SYMBOL" value="8" />
+  <parameter name="FIFO_DEPTH" value="16" />
+  <parameter name="CHANNEL_WIDTH" value="0" />
+  <parameter name="ERROR_WIDTH" value="0" />
+  <parameter name="USE_PACKETS" value="1" />
+  <parameter name="USE_FILL_LEVEL" value="0" />
+  <parameter name="EMPTY_LATENCY" value="3" />
+  <parameter name="USE_MEMORY_BLOCKS" value="1" />
+  <parameter name="USE_STORE_FORWARD" value="0" />
+  <parameter name="USE_ALMOST_FULL_IF" value="0" />
+  <parameter name="USE_ALMOST_EMPTY_IF" value="0" />
+  <parameter name="ENABLE_EXPLICIT_MAXCHANNEL" value="false" />
+  <parameter name="EXPLICIT_MAXCHANNEL" value="0" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+ </module>
+ <module
+   kind="altera_avalon_sc_fifo"
+   version="13.1"
+   enabled="1"
+   name="sc_fifo_to_app_sink">
+  <parameter name="SYMBOLS_PER_BEAT" value="8" />
+  <parameter name="BITS_PER_SYMBOL" value="8" />
+  <parameter name="FIFO_DEPTH" value="16" />
+  <parameter name="CHANNEL_WIDTH" value="0" />
+  <parameter name="ERROR_WIDTH" value="0" />
+  <parameter name="USE_PACKETS" value="1" />
+  <parameter name="USE_FILL_LEVEL" value="0" />
+  <parameter name="EMPTY_LATENCY" value="3" />
+  <parameter name="USE_MEMORY_BLOCKS" value="1" />
+  <parameter name="USE_STORE_FORWARD" value="0" />
+  <parameter name="USE_ALMOST_FULL_IF" value="0" />
+  <parameter name="USE_ALMOST_EMPTY_IF" value="0" />
+  <parameter name="ENABLE_EXPLICIT_MAXCHANNEL" value="false" />
+  <parameter name="EXPLICIT_MAXCHANNEL" value="0" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+ </module>
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="global_reset_controller.clk" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="pcap_stream_master.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="pcap_stream_master.clk_reset" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="avalon_mm2st.clk_in" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="avalon_mm2st.reset_in" />
+ <connection
+   kind="avalon"
+   version="13.1"
+   start="pcap_stream_master.master"
+   end="avalon_mm2st.in">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="st_bytes_to_packet.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="st_bytes_to_packet.clk_reset" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="sc_fifo_in.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="sc_fifo_in.clk_reset" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="st_packets_to_bytes.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="st_packets_to_bytes.clk_reset" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="avalon_st2mm.clk_in" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="avalon_st2mm.reset_in" />
+ <connection
+   kind="avalon"
+   version="13.1"
+   start="pcap_stream_master.master"
+   end="avalon_st2mm.out">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="13.1"
+   start="pcap_stream_master.master"
+   end="avl_st_socket.control_mm">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0008" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="avl_st_socket.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="avl_st_socket.reset" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="pcap_stream_master.master_reset"
+   end="avl_st_socket.reset" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="avalon_mm2st.out"
+   end="data_format_32_to_8.in" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="data_format_32_to_8.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="data_format_32_to_8.reset" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="data_format_8_to_64.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="data_format_8_to_64.reset" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="data_format_64_to_8.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="data_format_64_to_8.reset" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="avl_st_socket.stream_out"
+   end="data_format_64_to_8.in" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="data_format_64_to_8.out"
+   end="st_packets_to_bytes.in_packets_stream" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="data_format_8_to_32.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="data_format_8_to_32.reset" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="st_packets_to_bytes.out_bytes_stream"
+   end="data_format_8_to_32.in" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="sc_fifo_out.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="sc_fifo_out.clk_reset" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="data_format_8_to_32.out"
+   end="sc_fifo_out.in" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="sc_fifo_out.out"
+   end="avalon_st2mm.in" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="data_format_8_to_64.out"
+   end="avl_st_socket.stream_in" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="data_format_32_to_8.out"
+   end="sc_fifo_in.in" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="sc_fifo_in.out"
+   end="st_bytes_to_packet.in_bytes_stream" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="st_bytes_to_packet.out_packets_stream"
+   end="data_format_8_to_64.in" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="sc_fifo_to_app_src.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="sc_fifo_to_app_src.clk_reset" />
+ <connection
+   kind="clock"
+   version="13.1"
+   start="global_clock_bridge.out_clk"
+   end="sc_fifo_to_app_sink.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="global_reset_controller.reset_out"
+   end="sc_fifo_to_app_sink.clk_reset" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="avl_st_socket.app_stream_src"
+   end="sc_fifo_to_app_src.in" />
+ <connection
+   kind="avalon_streaming"
+   version="13.1"
+   start="sc_fifo_to_app_sink.out"
+   end="avl_st_socket.app_stream_sink" />
+ <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+</system>
