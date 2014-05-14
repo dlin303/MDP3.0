@@ -23,7 +23,7 @@ module MDP3_STREAMER_TOP (
 		//output logic parser_ready,
 		output logic enable_order_book, //halts the reading of orderbook if low
 
-	//FIFO output
+		//FIFO output
 		output logic [63:0] message_packetizer_to_fifo,
 		output logic fifo_wrreq, //write request from packetizer to fifo
 		output logic fifo_empty, //high if fifo is empty

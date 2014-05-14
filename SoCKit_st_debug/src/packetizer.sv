@@ -207,8 +207,8 @@ module packetizer(data_in,clk, reset_n, start_packet, end_packet, EN, writeReq, 
 						next_state <= DONE;
 					end
 					else begin
-						//payload_len <= udp_len - 16'h0008;
-						payload_len <= 16'd40;
+						payload_len <= udp_len - 16'h0008;
+						//payload_len <= 16'd40;
 						next_state <= PAYLOAD;
 						//offset <= 4'd6;
 					end
